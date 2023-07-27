@@ -1,0 +1,39 @@
+<div class="question-container">
+    <mat-card>
+        <mat-card-content>
+            <div class="main" *ngFor="let question of question">
+                <h4>{{ question.question }}</h4>
+                <mat-form-field>
+                    <mat-label>{{ question.type === 'textinput' ? 'Your Answer' : 'Select an Option' }}</mat-label>
+                    <input *ngIf="question.type === 'textinput'; else optionsList" matInput>
+                    <ng-template #optionsList>
+                        <mat-select>
+                            <mat-option (click)="changeVal(option)" *ngFor="let option of question.options"
+                                [value]="option">{{
+                                option }}</mat-option>
+                        </mat-select>
+                    </ng-template>
+                </mat-form-field>
+                <div class="sub" *ngFor="let subquestion of question.subQue">
+                    <div *ngIf="showIf">
+                        <h4>{{ subquestion.question }}</h4>
+                        <mat-form-field>
+                            <mat-label>{{ subquestion.type === 'textinput' ? 'Your Answer' : 'Select an Option'
+                                }}</mat-label>
+                            <input *ngIf="subquestion.type === 'textinput'; else optionsListsub" matInput>
+                            <ng-template #optionsListsub>
+                                <mat-select>
+                                    <mat-option *ngFor="let option of subquestion.options" [value]="option">{{ option
+                                        }}</mat-option>
+                                </mat-select>
+                            </ng-template>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div class="button">
+        <button mat-raised-button color="primary">Submit</button>
+    </div>
+</div>
